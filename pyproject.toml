@@ -1,0 +1,39 @@
+[build-system]
+requires = [ "setuptools",]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cli_hook_poc"
+readme = "README.md"
+dynamic = [ "dependencies", "version",]
+
+[project.scripts]
+cli-hook-poc = "cli_hook_poc.__main__:main"
+
+[tool.kedro]
+package_name = "cli_hook_poc"
+project_name = "cli-hook-poc"
+kedro_init_version = "0.19.6"
+tools = [ "None",]
+example_pipeline = "True"
+source_dir = "src"
+
+
+[tool.setuptools.dynamic.dependencies]
+file = "requirements.txt"
+
+[tool.setuptools.dynamic.version]
+attr = "cli_hook_poc.__version__"
+
+[tool.setuptools.packages.find]
+where = [ "src",]
+namespaces = false
+
+
+[project.entry-points."kedro.cli_hooks"]
+kedro-poc = "cli_hook_poc.plugin:hook"
+
+[project.entry-points."kedro.hooks"]
+kedro-poc = "cli_hook_poc.plugin:hook"
+[tool.kedro_telemetry]
+project_id = "9e6c9ca001a04c31ae56a9bf1da88482"
